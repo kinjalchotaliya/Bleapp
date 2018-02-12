@@ -1,0 +1,164 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2 class="ttl-text title-font text-center mrg-btm20"> New Bleapp</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="popup-form">
+    <%= form_for(@bleapp, :url => admin_bleapps_path,method: :post,:html => {:id => "bleapp_new_form",:name => "bleapp_new_form",:multipart => true}) do |f|%>
+    <div class="col-md-6 col-md-push-3">
+
+      <!-- <div class="form-group">
+        <label for="Name" class="control-label">UUID</label>
+          <%#=select_tag "uuid", options_from_collection_for_select(@filter_beacons, "name", "uuid"),:class => "form-control"%>
+      </div> -->
+      <div class="form-group">
+          <label for="Name" class="control-label">Title</label>
+            <%= f.text_field :title,:id => "title",:class => "form-control", :placeholder => "Enter Title"%>
+        </div>
+
+        <div class="form-group">
+          <label for="Name" class="control-label">Proximity ID</label>
+          <select name="bleeapp[beacon_id]" id="bleeapp_beacon_id" class="form-control">
+            <% @proxi_beacons.each do |beacon| %>
+              <option value="<%= beacon.id%>" data-image="<%= '/assets/cross.jpg' if Bleeapp.find_by(beacon_id: beacon.id)%>"><%= beacon.uuid %></option>
+            <%end%>
+          </select>
+          <small></small>
+        </div>
+
+
+      <div id="detail">
+        <div class="form-group">
+          <label for="Name" class="control-label">Category</label>
+            <%= f.select :tags,options_for_select(['WildCard','Home','Kitchen','Living Room','Bedroom','Bathroom']),{:prompt => "Select Any"},{:class => "form-control"}%>
+        </div>
+
+        <div class="form-group">
+          <label for="Name" class="control-label">Description</label>
+            <%= f.text_area :description,:class => "form-control", :placeholder => "Enter Description"%>
+        </div>
+        <div class="form-group">
+          <label for="Logo">Add Images</label>
+          <%=file_field_tag 'file[]', :accept => 'image/*',:class => "btn btn-primary", :multiple => true%>
+        </div>
+        <%= hidden_field_tag "property_id",resource.id%>
+      </div>
+    <div class="clearfix"></div>
+    <div class="col-md-6 col-md-push-3">
+      <%= f.submit "Create",:id => "submit_button",:class => "btn btn-popup title-font btn-lg btn-block", data: { disable_with: "Processing..." },style:"margin-bottom: 48px;"%>
+    </div>
+    <% end %>
+   </div>
+  </div>
+</div>
+
+
+<style type="text/css">
+  .test{
+    color: red;
+    background-image:url(/assets/avatar_icon.png);
+  }
+</style>
+
+<script type="text/javascript">
+  $(document).ready(function(e){
+    try {
+    var pages = $("#bleeapp_beacon_id").msDropdown({on:{change:function(data, ui) {
+                      var value = data.value
+                      var name = data.text;
+                      get_beacon()
+                      $.ajax({
+                        url: "<%=admin_get_assign_beacon_path%>",
+                        method: "get",
+                        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+                        data : {
+                          uuid: name
+                        },
+                        success: function(data){
+                          console.log(data['valid']);
+                          if (data['valid'] == false)
+                          {
+                            $('small').html("Above beacon is already assign to property id "+ data['property'] + ' if you still want to assign beacon then it will delete from previous property it self.' )
+                          }
+                          else
+                          {
+                            $('small').empty();
+                          }
+                        }
+                      })
+                      }}})
+
+    var pagename = document.location.pathname.toString();
+    pagename = pagename.split("/");
+    pages.setIndexByValue(pagename[pagename.length-1]);
+    $("#ver").html(msBeautify.version.msDropdown);
+  } catch(e) {
+    //console.log(e);
+  }
+    $("#bleeapp_tags").attr("readonly", true);
+    get_beacon();
+    function get_beacon(){
+      var value = $("#bleeapp_beacon_id option:selected")[0].value
+      $.ajax({
+        url: "<%=admin_get_beacon_path%>",
+        method: "get",
+        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+        data : {
+          id: value
+        },
+        success: function(data){
+          console.log(data['valid']);
+          if (data['valid'] == true)
+          {
+            $('#bleeapp_tags').val(data['name']);
+          }
+          else
+          {
+            $('small').empty();
+          }
+        }
+      })
+    }
+
+    $("form").bootstrapValidator({
+      message : "This value is not valid",
+      feedbackIcons : {
+        valid : "glyphicon glyphicon-ok error_icon_position",
+        invalid : "glyphicon glyphicon-remove error_icon_position",
+        validating : "glyphicon glyphicon-refresh error_icon_position"
+      },
+      fields : {
+        "bleeapp[title]" : {
+          validators: {
+            notEmpty : {
+              message : "Title is required."
+            }
+          }
+        },
+        "bleeapp[tags]" : {
+          validators: {
+            notEmpty : {
+              message : "Tags is required."
+            }
+          }
+        },
+        "bleeapp[beacon_id]" : {
+          validators: {
+            notEmpty : {
+              message : "UUID is required."
+            }
+          }
+        },
+        "file[]" : {
+          validators: {
+            notEmpty : {
+              message : "Bleapp images is required."
+            }
+          }
+        }
+      }
+    });
+  });
+</script>

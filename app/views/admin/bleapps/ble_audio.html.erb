@@ -1,0 +1,63 @@
+<div class="row">
+	<div class="col-md-12 animated-panel zoomIn" style="animation-delay: 0.1s;">
+    <div class="hpanel">
+      <div class="panel-heading">
+        <div class="panel-tools">
+          <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+          <a class="closebox"><i class="fa fa-times"></i></a>
+        </div>
+        <h5>Bleapp Audio</h5>
+        <%#=link_to "Add Image","#",class:"btn btn-primary"%>
+      </div>
+
+      <div class="panel-body" style="display: block;">
+        <div class="table-responsive">
+          <table cellpadding="1" cellspacing="1" class="table table-bordered table-striped">
+            <tbody>
+              <tr>
+                <td>
+                  <%= form_for(@bleapp, as: "", :url => admin_ble_audio_path( id: params[ :id ] ),method: :post,:html => {:id => "bleapp_add_images",:name => "bleapp_add_images",:multipart => true}) do |f|%>
+                    <div class="form-group">
+                      <div class="col-md-4">
+                        <label for="Logo">Add another audio</label>
+                        <%= f.file_field :audio, :accept => 'audio/mpeg', :class => "btn btn-primary" %>
+                      </div>
+                      <div class="col-md-3">
+                        <label for="Logo">&nbsp;</label>
+                        <%= submit_tag "Upload",:id => "submit_button",:class => "btn btn-popup title-font btn-lg btn-block", data: { disable_with: "Processing..." },style:"margin-bottom: 10px;"%>
+                      </div>
+                    </div>
+                  <%end%>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="panel-body" style="display: block;">
+        <div class="table-responsive">
+          <table cellpadding="1" cellspacing="1" class="table table-bordered table-striped">
+            <tbody>
+              <%if @bleapp.audio.present?%>
+                <tr>
+                  <td><%= @bleapp.audio_file_name %></td> 
+                  <td><%= link_to "Delete audio", admin_ble_audio_path( id: params[ :id ] ),
+                                                  method: :delete %>
+                </tr>
+                <tr>
+                  <audio src=<%= @bleapp.audio.url %> type="audio/mpeg" controls/>
+                    <i>Cannot play an audio. Your browser doesn't support HTML5</i>
+                  </audio>
+                </tr>
+              <%else%>
+                <tr><td> No audio available..!</td></tr>
+              <%end%>
+            </tbody>
+          </table>
+            <%= link_to 'Cancel',:back , class:"btn btn-default title-font btn-lg btn-block",style: "margin-bottom: 10%; margin-top: 2%;",data: { no_turbolink: true }%>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

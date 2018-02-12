@@ -1,0 +1,44 @@
+<div class="table-responsive" style="margin-top: 20px;">
+  <table cellpadding="1" cellspacing="1" class="table table-bordered table-striped" id="user_feedback_table">
+    <thead>
+      <tr>
+        <th> Rating </th>
+        <th> Contactable </th>
+        <th> Comment </th>
+        <th> E-mail</th>
+        <th> Property ID</th>
+        <th> Action </th>
+      </tr>
+    </thead>
+    <tbody>
+      <%@feedbacks_user.each do |feedback|%>
+        <tr>
+          <td><%=feedback.rate%></td>
+          <td><%=feedback.contactable%></td>
+          <td><%=feedback.comments%></td>
+          <td><%=feedback.user.email%></td>
+          <%if feedback.property_id.present? %>
+            <td><%= link_to "#{feedback.property_id}", admin_property_path(feedback.property_id)%></td>
+          <%else%>
+            <td></td>
+          <%end%>
+          <td><%= link_to "Delete", admin_feedbacks_path(id: feedback.id), method: :delete, data: { confirm: 'Are you sure?' }%></td>
+        </tr>
+      <%end%>
+    </tbody>
+  </table>
+</div>
+<script>
+    $(document).on('turbolinks:load',function(){
+      $('#user_feedback_table').DataTable({
+        "stateSave": true,
+        "retrieve":true,
+        "paging": true,
+        "info": false,
+        "columnDefs": [ { "targets": [5], "orderable": false },
+                        { "targets": [5], "searchable": false}],
+        "language": { searchPlaceholder: "Search here" }
+    });
+    $( ".dataTables_paginate" ).addClass( "apple_pagination" );
+  });
+</script>

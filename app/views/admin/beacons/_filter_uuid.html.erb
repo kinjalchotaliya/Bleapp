@@ -1,0 +1,58 @@
+<div class="panel-body" style="display: block;">
+  <div class="row">
+    <%#= form_tag admin_beacons_path, :method => 'get', class: "form-inline" do %>
+      <!-- <div class="input-group pull-right mrg-btm20 col-md-5">
+        <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Enter UUID or Name", style: "z-index:0" %>
+        <%= hidden_field_tag 'is_filter', 'true'%>
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="submit">
+          <span class="glyphicon glyphicon-search"></span>
+          </button>
+        </span>
+      </div> -->
+    <%#end%>
+  </div>
+  <div class="table-responsive" style="margin-top: 5px;">
+    <table cellpadding="1" cellspacing="1" class="table table-bordered table-striped" id="filter_UUID_list_table">
+      <thead>
+        <tr>
+   				<th> UUID </th>
+					<th> Name </th>
+					<th id="col_header1"> <center>Action</center></th>
+          <th id="hide_dt_column"> <center>Action</center></th>
+        </tr>
+      </thead>
+      <tbody>
+   			<%@filter_beacons.each do |beacon|%>
+					<tr>
+						<td width="50%"><%=beacon.uuid%></td>
+						<td width="20%"><%=beacon.name%></td>
+            <td width="10%"><%= link_to "Edit",edit_admin_beacon_path(beacon.id)%></td>
+						<td width="10%"><%= link_to "Delete", admin_beacon_path(beacon.id), method: :delete, data: { confirm: 'Are you sure?' }%></td>
+					</tr>
+				<%end%>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- <div class="panel-footer" style="display: block;">
+  <div class="apple_pagination">
+    <%#= will_paginate @filter_beacons, :container => false %>
+  </div>
+</div> -->
+<script>
+    $(document).on('turbolinks:load',function(){
+      $('#filter_UUID_list_table').DataTable({
+        "reverte":true,
+        "paging": true,
+        "info": false,
+        "columnDefs": [ { "targets": [2,3], "orderable": false },
+                        { "targets": [2,3], "searchable": false}
+                        ],
+        "language": { searchPlaceholder: "Search here" }
+    });
+    $("#hide_dt_column").hide();
+    $("#col_header1").attr('colspan',2);
+    $( ".dataTables_paginate" ).addClass( "apple_pagination" );
+  });
+  </script>

@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2 class="ttl-text title-font text-center mrg-btm20"> Edit Highlight</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="popup-form">
+    <%= form_for(@highlight, :url => admin_highlight_path,method: :patch,:html => {:id => "highlight_edit_form",:name => "highlight_edit_form"}) do |f|%>
+    <div class="col-md-6 col-md-push-3">
+      <div class="form-group">
+        <label for="Name" class="control-label">Title</label>
+          <%= f.text_field :title,:id => "title",:class => "form-control", :placeholder => "Enter Title"%>
+      </div>
+      <div class="form-group">
+        <label for="Name" class="control-label">Note</label>
+          <%= f.text_field :note,:id => "Tags",:class => "form-control", :placeholder => "Enter Tags"%>
+      </div>
+      <div class="form-group">
+        <label for="Logo">Change Image</label>
+        <%= f.file_field :image ,:id => "photos",:class => "btn btn-primary",:placeholder => "Choose Photos"%>
+        <%= image_tag @highlight.image.url(:thumb) if @highlight.image.file? %>
+      </div>
+    <div class="clearfix"></div>
+    <div class="col-md-6 col-md-push-3">
+      <%= f.submit "Update",:id => "submit_button",:class => "btn btn-popup title-font btn-lg btn-block", data: { disable_with: "Processing..." }%>
+    </div>                
+    <% end %>
+   </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("form").bootstrapValidator({
+      message : "This value is not valid",
+      feedbackIcons : {
+        valid : "glyphicon glyphicon-ok error_icon_position",
+        invalid : "glyphicon glyphicon-remove error_icon_position",
+        validating : "glyphicon glyphicon-refresh error_icon_position"
+      },
+      fields : {
+        "highlight[title]" : {
+          validators: {
+            notEmpty : {
+              message : "Title is required."
+            }
+          }
+        },
+        "highlight[note]" : {
+          validators: {
+            notEmpty : {
+              message : "Note is required."
+            }
+          }
+        }
+      }
+    });
+  });
+</script>

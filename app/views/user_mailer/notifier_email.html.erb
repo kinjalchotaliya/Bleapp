@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h4>Agent Detail:</h4>
+    <ul>
+      <li>Agent Name: <%= @user.f_name  + " " + @user.l_name%></li>
+      <li>Agent Email: <%= @user.email%></li>
+      <li>Assosiated Agency: <%= @user.try(:agent_info).try(:asso_agency)%></li>
+      <li>Office Phone: <%= @user.try(:agent_info).try(:office_phone)%></li>
+      <li>B.R.E License No: <%= @user.try(:agent_info).try(:license_no)%></li>
+    </ul>
+  </body>
+</html>

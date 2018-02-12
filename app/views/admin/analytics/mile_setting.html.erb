@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2 class="ttl-text title-font text-center mrg-btm20"> Mile Setting</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="popup-form">
+    <%= form_for(@setting, :url => admin_update_setting_path,method: :post,:html => {:id => "setting_edit_form",:name => "setting_edit_form"}) do |f|%>
+    <div class="col-md-6 col-md-push-3">
+      <div class="form-group">
+        <label for="Name" class="control-label">Mile For Filter</label>
+          <%= f.text_field :mile_for_filter,:class => "form-control", :placeholder => "Enter mile for filter"%>
+      </div>
+      <div class="form-group">
+        <label for="Name" class="control-label">Mile For Listing</label>
+          <%= f.text_field :mile_for_list,:class => "form-control", :placeholder => "Enter mile for listing"%>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md-6 col-md-push-3">
+      <%= f.submit "Update",:id => "submit_button",:class => "btn btn-popup title-font btn-lg btn-block", data: { disable_with: "Processing..." },style: "margin-bottom: 10%;"%>
+    </div>                
+    <% end %>
+   </div>
+  </div>
+</div>

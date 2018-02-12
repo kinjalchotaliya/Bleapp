@@ -1,0 +1,52 @@
+<div class="content animate-panel">
+  <div class="row">
+    <div class="col-lg-12 animated-panel zoomIn" style="animation-delay: 0.1s;">
+      <div class="hpanel">
+        <div class="panel-heading">
+          Error prone data List
+        </div>
+        <div class="panel-body" style="display: block;">
+          <div class="table-responsive" style="margin-top: 10px;">
+            <table cellpadding="1" cellspacing="1" class="table table-bordered table-striped">
+              <thead>
+                <tr>
+           				<th> UUID </th>
+        					<th> Name </th>
+        					<th> Agent Email </th>
+                  <th> Description </th>
+                  <th> Date </th>
+                </tr>
+              </thead>
+              <tbody>
+           			<%@data.each do |beacon|%>
+        					<tr>
+        						<td><%=beacon[:uuid]%></td>
+        						<td><%=beacon[:name]%></td>
+                    <td><%=beacon[:agent_email]%></td>
+        						<td><%=beacon[:description]%></td>
+                    <td><%=beacon[:date]%></td>
+        					</tr>
+        				<%end%>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="panel-footer" style="display: block;">
+          <div class="">
+            <p>All above data contain some error like duplicate or improper data, all above data are not stored to database please correct it and try again..!</p>
+            <p>Data must satisfy following conditions.</p>
+            <p>
+              <ul>
+              <li>Agent email must be registered.</li>
+              <li>UUID and Name must be present</li>
+              <li>UUID must be unique            </li>
+              <li>UUID must be in following format </li></ul>
+              <p>Ex.8character-4character-4character-4character-12character</p>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>          
+      

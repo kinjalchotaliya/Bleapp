@@ -1,0 +1,156 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2 class="ttl-text title-font text-center mrg-btm20"> Registration</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="popup-form">
+    <%= form_for(User.new, :url => admin_users_path,:html => {:id => "user_form",:name => "user_form"}) do |f|%>
+    <div class="col-md-6 col-md-push-3">
+      <div class="form-group">
+        <label for="Name" class="control-label">First Name</label>
+          <%= f.text_field :f_name,:class => "form-control", :placeholder => "Enter first name"%>
+      </div>
+      <div class="form-group">
+        <label for="Name" class="control-label">Last Name</label>
+          <%= f.text_field :l_name,:class => "form-control", :placeholder => "Enter last name"%>
+      </div>
+      <div class="form-group">
+        <label for="Name" class="control-label">Cell Phone</label>
+          <%= f.text_field :cell_phone,:class => "form-control", :placeholder => "Enter Cell phone number"%>
+      </div>
+      <div class="form-group">
+        <label for="Name" class="control-label">E-mail</label>
+          <%= f.text_field :email,:class => "form-control", :placeholder => "Enter email address"%>
+      </div>
+      <div class="form-group">
+        <label for="Name" class="control-label">Password</label>
+          <%= f.text_field :password,:class => "form-control", :placeholder => "Enter password"%>
+      </div>
+      <%if params[:role] == "USER"%>
+        <%= f.fields_for User.new.build_user_setting do |ff| %>
+          <div class="form-group">
+            <label for="Name" class="control-label">Contact By Email</label>
+              <%= ff.select :contact_by_email, options_for_select(["True","False"]),{:prompt => "Select Any"},{:class => "form-control"} %>
+          </div>
+          <div class="form-group">
+            <label for="Name" class="control-label">Contact By SMS</label>
+              <%= ff.select :contact_by_sms, options_for_select(["True","False"]),{:prompt => "Select Any"},{:class => "form-control"} %>
+          </div>
+          <div class="form-group">
+            <label for="Name" class="control-label">Work with Agent</label>
+              <%= ff.select :work_with_agent, options_for_select(["True","False"]),{:prompt => "Select Any"},{:class => "form-control"} %>
+          </div>
+        <%end%>
+      <%elsif params[:role] == "AGENT"%>
+        <%= f.fields_for User.new.build_agent_info do |ff| %>
+          <div class="form-group">
+            <label for="Name" class="control-label">Office Phone</label>
+              <%= ff.text_field :office_phone,:id => "office_phone",:class => "form-control", :placeholder => "Enter Ofice Phone"%>
+          </div>
+          <div class="form-group">
+            <label for="Name" class="control-label">Assosiated Agency</label>
+              <%= ff.text_field :asso_agency,:id => "asso_agency",:class => "form-control", :placeholder => "Enter Assosiated Agency"%>
+          </div>
+          <div class="form-group">
+            <label for="Name" class="control-label">B.R.E License No</label>
+              <%= ff.text_field :license_no,:id => "license_no",:class => "form-control", :placeholder => "Enter B.R.E License No"%>
+          </div>
+          <div class="form-group">
+            <label for="Logo">Choose Picture</label>
+            <%= ff.file_field :avatar ,:id => "profile",:class => "file_field",:placeholder => "Choose Logo"  %>
+          </div>
+        <%end%>
+      <%end%>
+    </div>
+    <div class="clearfix"></div>
+    <%= f.hidden_field :role, :value => params[:role] %>
+    <div class="col-md-6 col-md-push-3">
+      <%= f.submit "Create",:id => "submit_button",:class => "btn btn-popup title-font btn-lg btn-block", data: { disable_with: "Processing..." },style: "margin-bottom: 45px;"%>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md-6 col-md-push-3">
+      <%= link_to 'Cancel',:back , class:"btn btn-default title-font btn-lg btn-block",style: "margin-bottom: 10%; margin-top: 2%;",data: { no_turbolink: true }%>
+    </div>
+    <% end %>
+   </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("form").bootstrapValidator({
+      message : "This value is not valid",
+      feedbackIcons : {
+        valid : "glyphicon glyphicon-ok error_icon_position",
+        invalid : "glyphicon glyphicon-remove error_icon_position",
+        validating : "glyphicon glyphicon-refresh error_icon_position"
+      },
+      fields : {
+        "user[f_name]" : {
+          validators: {
+            notEmpty : {
+              message : "First name is required."
+            }
+          }
+        },
+        "user[l_name]" : {
+          validators: {
+            notEmpty : {
+              message : "Last name is required."
+            }
+          }
+        },
+        "user[cell_phone]" : {
+          validators: {
+            notEmpty : {
+              message : "Cell phone is required."
+            }
+          }
+        },
+        "user[email]" : {
+          validators: {
+            notEmpty : {
+              message : "Email is required."
+            },
+            remote: {
+              message: "This email is already exist..!!",
+              url: "/admin/check_email_validation"
+            },
+            emailAddress : {
+              message : 'The email address is not a valid'
+            }
+          }
+        },
+        "user[password]" : {
+          validators: {
+            notEmpty : {
+              message : "Password is required."
+            },
+            stringLength: {
+              min: 8,
+              max: 50,
+              message: 'Password must contain minimum 8 characters'
+            }
+          }
+        },
+        "user[user_setting][work_with_agent]" : {
+          validators: {
+            notEmpty : {
+              message : "Please select any."
+            }
+          }
+        },
+        "user[agent_info][license_no]" : {
+          validators: {
+            notEmpty : {
+              message : "License number is required."
+            }
+          }
+        }
+      }
+    });
+  });
+</script>

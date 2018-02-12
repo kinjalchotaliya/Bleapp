@@ -1,0 +1,344 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2 class="ttl-text title-font text-center mrg-btm20"> Add Property</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="popup-form">
+    <%= form_for(@property, :url => admin_properties_path,method: :post,:html => {:id => "property_new_form",:name => "property_edit_form"}) do |f|%>
+    <div class="col-md-5 col-md-push-1">
+      <div class="form-group">
+        <label for="Name" class="control-label">Status</label>
+          <%= f.select :status, options_for_select(["For Sale","Sold","Pending"]),{:prompt => "Select Any"},{:class => "form-control"} %>
+      </div>
+      <div class="form-group">
+        <label for="Name" class="control-label">Address</label>
+          <%= f.text_field :address,:id => "address",:class => "form-control", :placeholder => "Enter Address"%>
+      </div>
+      <div class="form-group">
+        <label for="Name" class="control-label">City</label>
+          <%= f.text_field :city,:id => "city",:class => "form-control", :placeholder => "Enter City"%>
+      </div>
+      <div class="form-group">
+        <label for="Name" class="control-label">State</label>
+          <%#= f.text_field :state,:id => "state",:class => "form-control", :placeholder => "Enter State"%>
+          <%=f.select(:state,get_state_list,{:prompt => "Select Any"},{:class => "form-control",id:"state"})%>
+      </div>
+      <div class="form-group">
+        <label for="Name" class="control-label">Zip</label>
+          <%= f.text_field :zip,:id => "zip",:class => "form-control", :placeholder => "Enter Zip"%>
+      </div>
+
+      <div class="form-group">
+        <label for="Agent" class="control-label">Agent</label>
+          <%= f.select :user_id, options_for_select(get_agents_list.map{|a| ["#{a.email}", a.id]}),{:prompt => "Select Agent"},{:class => "form-control select2"} %>
+      </div>
+
+
+      <!-- <div class="form-group">
+        <label for="Name" class="control-label">Latitude</label>
+          <%= f.text_field :lat,:id => "lat",:class => "form-control", :placeholder => "Enter Latitude of address"%>
+      </div>
+      <div class="form-group">
+        <label for="Name" class="control-label">Longitude</label>
+          <%= f.text_field :lon,:id => "zip",:class => "form-control", :placeholder => "Enter Longitude of address"%>
+      </div> -->
+
+
+
+      <%= f.fields_for :property_detail do |ff| %>
+        <div class="form-group">
+          <label for="Name" class="control-label">Propery Type</label>
+            <%= ff.select :property_type,options_for_select(["Home","Townhome","Condo","Multi-Family","Commercial","Other"]),{:prompt => "Select Any"},{:class => "form-control"}%>
+        </div>
+        <!-- <div class="form-group">
+          <label for="Name" class="control-label">Style</label>
+            <%#= ff.text_field :style,:id => "style",:class => "form-control", :placeholder => "Enter Property Style"%>
+        </div> -->
+        <div class="form-group">
+          <label for="Name" class="control-label">Price</label>
+            <%= ff.text_field :price,:id => "price",:class => "form-control", :placeholder => "Enter Property Price"%>
+        </div>
+        <div class="form-group">
+          <label for="Name" class="control-label">Square Feet</label>
+            <%#= ff.select :sqft,options_for_select(["250","500","750","1000","1250","1500","1750","2000","2250","2500","2750", "3000","3250","3500","3750","4000"]),{:prompt => "Select Any"},{:class => "form-control"}%>
+            <%= ff.text_field :sqft,:id => "sqft",:class => "form-control", :placeholder => "Enter Property Square Foot"%>
+        </div>
+        <div class="form-group">
+          <label for="Name" class="control-label">Lot Size(in acres)</label>
+            <%= ff.text_field :lot_size,:id => "lot_size",:class => "form-control", :placeholder => "Enter Property Lot Size"%>
+        </div>
+        <div class="form-group">
+          <label for="Name" class="control-label">Year Built</label>
+            <%= ff.text_field :yeat_built,:id => "yeat_built",:class => "form-control", :placeholder => "Enter Property Year Built"%>
+        </div>
+
+        <div class="form-group">
+          <label for="Name" class="control-label">Beds</label>
+            <%= ff.select :beds, options_for_select(["0+","1+","2+","3+","4+","5+"]),{:prompt => "Select Any"},{:class => "form-control"} %>
+        </div>
+
+      </div>
+      <div class="col-md-5 col-md-push-1">
+        <div class="form-group">
+          <label for="Name" class="control-label">Baths</label>
+            <%= ff.select :baths, options_for_select(["0+","0.5+","1+","1.5+","2+","2.5+","3+","3.5+","4+","4.5+","5+"]),{:prompt => "Select Any"},{:class => "form-control"} %>
+        </div>
+        <div class="form-group">
+          <label for="Name" class="control-label">MLS</label>
+            <%= ff.text_field :mls,:id => "mls",:class => "form-control", :placeholder => "Enter Property MLS"%>
+        </div>
+        <div class="form-group">
+          <label for="Name" class="control-label">Garage</label>
+            <%= ff.select :garage, options_for_select([1,2,3,4,5,6,7,8,9,"10+"]),{:prompt => "Select Any"},{:class => "form-control"} %>
+        </div>
+        <div class="form-group">
+          <label for="Name" class="control-label">Heat</label>
+            <%= ff.select :heat,options_for_select(["Gas","Oil","Solar","Geo-Thermal","Electric"]),{:prompt => "Select Any"},{:class => "form-control"} %>
+        </div>
+        <div class="form-group">
+          <label for="Name" class="control-label">Air</label>
+            <%= ff.select :air,options_for_select(["None","Wall","Central"]),{:prompt => "Select Any"},{:class => "form-control"}%>
+        </div>
+        <div class="form-group">
+          <label for="Name" class="control-label">Water</label>
+            <%= ff.select :water,options_for_select(["City","Well"]),{:prompt => "Select Any"},{:class => "form-control"}%>
+        </div>
+        <div class="form-group">
+          <label for="Name" class="control-label">Sewer</label>
+            <%= ff.select :sewer,options_for_select(["City","Septic"]),{:prompt => "Select Any"},{:class => "form-control"}%>
+        </div>
+        <div class="form-group">
+          <label for="Name" class="control-label">Description</label>
+            <%= ff.text_area :description,:id => "property_type",:class => "form-control", :placeholder => "Enter Property Description"%>
+        </div>
+      <%end%>
+      <%= f.fields_for :property_schedule do |ff| %>
+        <div class="form-group">
+          <label for="Name" class="control-label">Date</label>
+          <div class='col-sm-12' id=''>
+            <%= ff.text_field :date,:class => "form-control",:id => "datetimepicker1", :placeholder => "Enter Date"%>
+            <!-- <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span> -->
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="Name" class="control-label">From</label>
+          <div class='col-sm-12' id=''>
+            <%= ff.text_field :from,:class => "form-control",:id => "datetimepicker2", :placeholder => "Enter Time From"%>
+            <!-- <span class="input-group-addon">
+                <span class="glyphicon glyphicon-time"></span>
+            </span> -->
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="Name" class="control-label">To</label>
+          <div class='col-sm-12' id=''>
+            <%= ff.text_field :to,:class => "form-control",:id => "datetimepicker3", :placeholder => "Enter Time To"%>
+            <!-- <span class="input-group-addon">
+                <span class="glyphicon glyphicon-time"></span>
+            </span> -->
+          </div>
+        </div>
+      <%end%>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md-6 col-md-push-3">
+      <%= f.submit "Create",:id => "submit_button",:class => "btn btn-popup title-font btn-lg btn-block", data: { disable_with: "Processing..." },style: "margin-bottom: 10%; margin-top: 2%;"%>
+    </div>
+    <% end %>
+   </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(function () {
+
+    // $('#state').select2({
+    //   placeholder: 'Select an state'
+    // }).on("change",function(){
+      // var selected = $(this).find("option:selected")
+      // var selectedText = selected.text().split("-")[1];
+      // selected.text(selectedText.trim());
+      // $("span[title='"+selected.text()+"']").text(selectedText);
+      // console.log(selected.text());
+      // $('#state option:selected').text(selected);
+      // $("span[title='"+$(this).val()+"']").text(selected);
+      // // console.log($("#state option:selected").val())
+      // $("#state option:selected").val(selected.trim());
+    // });
+
+   $('#datetimepicker1').datetimepicker({
+      format: 'MM/DD/YYYY'
+   });
+   $('#yeat_built').datetimepicker({
+      format: 'YYYY'
+   });
+   $('#datetimepicker2').datetimepicker({
+      format: 'LT'
+   });
+
+   $('#datetimepicker3').datetimepicker({
+      format: 'LT'
+   });
+  });
+
+  function initSelect2(){
+    $('.select2,#state').select2({
+      theme: "bootstrap"
+    });
+  }
+  $(document).on("page:load",initSelect2);
+  $(document).on("turbolinks:load",initSelect2);
+  $(document).on("ready",function(){
+
+    $(document).bind('page:before-unload', function() {
+    if (typeof(CKEDITOR) != "undefined"){
+        for(name in CKEDITOR.instances){
+            CKEDITOR.instances[name].destroy(true);
+        }
+    }
+
+  });
+
+    // $('.select2').select2({
+    //   theme: "bootstrap"
+    // });
+
+    $("form").bootstrapValidator({
+      message : "This value is not valid",
+      feedbackIcons : {
+        valid : "glyphicon glyphicon-ok error_icon_position",
+        invalid : "glyphicon glyphicon-remove error_icon_position",
+        validating : "glyphicon glyphicon-refresh error_icon_position"
+      },
+      fields : {
+        "property[status]" : {
+          validators: {
+            notEmpty : {
+              message : "Property status is required."
+            }
+          }
+        },
+        "property[address]" : {
+          validators: {
+            notEmpty : {
+              message : "Property address is required."
+            }
+          }
+        },
+        "property[city]" : {
+          validators: {
+            notEmpty : {
+              message : "City is required."
+            }
+          }
+        },
+        "property[state]" : {
+          validators: {
+            notEmpty : {
+              message : "State is required."
+            }
+          }
+        },
+        "property[zip]" : {
+          validators: {
+            notEmpty : {
+              message : "Zip is required."
+            },
+            regexp: {
+              regexp: /^\d{5}$/,
+              message: 'The US zipcode must contain 5 digits'
+            }
+          }
+        },
+        "property[property_detail_attributes][property_type]" : {
+          validators: {
+            notEmpty : {
+              message : "Property type is required."
+            }
+          }
+        },
+        "property[property_detail_attributes][price]" : {
+          validators: {
+            notEmpty : {
+              message : "Property price is required."
+            },
+            numeric:{
+              message: "Price contain only numeric value."
+            }
+          }
+        },
+        "property[property_detail_attributes][sqft]" : {
+          validators: {
+            notEmpty : {
+              message : "Property squre feet is required."
+            }
+          }
+        },
+        "property[property_detail_attributes][lot_size]" : {
+          validators: {
+            notEmpty : {
+              message : "Property lot size is required."
+            },
+            numeric:{
+              message :"Only numeric value allow."
+            }
+          }
+        },
+        "property[property_detail_attributes][yeat_built]" : {
+          validators: {
+            notEmpty : {
+              message : "Property year built is required."
+            }
+          }
+        },
+        "property[property_detail_attributes][beds]" : {
+          validators: {
+            notEmpty : {
+              message : "Beds is required."
+            }
+          }
+        },
+        "property[property_detail_attributes][baths]" : {
+          validators: {
+            notEmpty : {
+              message : "Baths is required."
+            }
+          }
+        },
+        "property[property_detail_attributes][mls]" : {
+          validators: {
+            notEmpty : {
+              message : "MLS is required."
+            }
+          }
+        },
+        "property[property_detail_attributes][garage]" : {
+          validators: {
+            notEmpty : {
+              message : "Garage is required."
+            }
+          }
+        },
+        "property[property_detail_attributes][heat]" : {
+          validators: {
+            notEmpty : {
+              message : "Heat is required."
+            }
+          }
+        },
+        "property[property_detail_attributes][air]" : {
+          validators: {
+            notEmpty : {
+              message : "Air is required."
+            }
+          }
+        }
+      }
+    });
+  });
+
+</script>

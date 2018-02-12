@@ -1,0 +1,691 @@
+<span class="left_panel">
+  <div class="table">
+    <%= render partial: 'index', locals: {index_arr: ApiIndexRenderer.passenger_api_index } %>
+  </div>  
+</span>
+<span class='right_panel'> 
+
+  <!--User changed Sign In Api -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Sign In', 
+        link_href: 'sign_in',
+        link_method: 'POST',
+        original_link:  api_v1_create_url,
+        parameters: [
+          {name: 'user[email]',data_type: 'character varying', description: 'Email', required: 1 },
+          {name: 'user[password]', description: 'Password',data_type: 'character varying', required: 1},
+          {name: 'user[device_type]', description: '1 = Android and 2 = IOS', data_type: 'integer'},
+          {name: 'user[device_token]', description: 'Enter Device token', data_type: 'character varying'}
+        ],
+        options: {}} %>
+
+<!--User Registration Api -->
+  <%= render partial: 'api', locals: {
+        link_name: 'User Registration', 
+        link_href: 'user_register',
+        link_method: 'POST',
+        original_link: api_v1_user_register_url,
+        parameters: [
+          {name: 'user[f_name]', description: 'First name of User ',data_type: 'character varying', required: 1 },
+          {name: 'user[l_name]', description: 'Last name of User',data_type: 'character varying', required: 1 },
+          {name: 'user[email]', description: 'Email of user',data_type: 'character varying', required: 1 },
+          {name: 'user[cell_phone]', description: 'Cell phone number',data_type: 'integer' },
+          {name: 'user[contact_by_email]', description: 'Contact by email(true/false)', data_type: 'boolean', required: 1},
+          {name: 'user[contact_by_sms]', description: 'Contact by SMS(true/false)', data_type: 'boolean', required: 1},
+          {name: 'user[work_with_agent]', description: 'Work with Agent(true/false)', data_type: 'boolean', required: 1},
+          {name: 'user[password]', description: 'Password(minimum 6 characters)', data_type: 'character varying', required: 1},
+          {name: 'user[device_type]', description: '1 = Android and 2 = IOS', data_type: 'integer'},
+          {name: 'user[device_token]', description: 'Enter Device token', data_type: 'character varying'}
+        ],
+        options: {}} %>
+
+<!--User Edit Account In Api -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Edit User Account', 
+        link_href: 'edit_user_acc',
+        link_method: 'POST',
+        original_link: api_v1_edit_user_account_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 },
+          {name: 'user[id]', description: 'Enter User id ',data_type: 'integer', required: 1 },
+          {name: 'user[f_name]', description: 'First name of User ',data_type: 'character varying', required: 1 },
+          {name: 'user[l_name]', description: 'Last name of User',data_type: 'character varying', required: 1 },
+          {name: 'user[email]', description: 'Email of user',data_type: 'character varying', required: 1 },
+          {name: 'user[cell_phone]', description: 'Cell phone number',data_type: 'integer'},
+          {name: 'user[contact_by_email]', description: 'Contact by email(true/false)', data_type: 'boolean', required: 1},
+          {name: 'user[contact_by_sms]', description: 'Contact by SMS(true/false)', data_type: 'boolean', required: 1},
+          {name: 'user[work_with_agent]', description: 'Work with Agent(true/false)', data_type: 'boolean', required: 1}
+        ],
+        options: {}} %>      
+
+<!--Agent Registration Api -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Agent Registration', 
+        link_href: 'agent_register',
+        link_method: 'POST',
+        original_link: api_v1_agent_register_url,
+        parameters: [
+          {name: 'user[avatar]', description: "Agent's profile image",data_type: 'character varying' },
+          {name: 'user[f_name]', description: 'First name of Agent ',data_type: 'character varying', required: 1 },
+          {name: 'user[l_name]', description: 'Last name of Agent',data_type: 'character varying', required: 1 },
+          {name: 'user[email]', description: 'Email of Agent',data_type: 'character varying', required: 1 },
+          {name: 'user[cell_phone]', description: 'Cell phone number',data_type: 'integer'},
+          {name: 'user[office_phone]', description: 'Office phone number', data_type: 'integer'},
+          {name: 'user[asso_agency]', description: 'Associated Agency', data_type: 'character varying'},
+          {name: 'user[license_no]', description: 'B.R.E License number', data_type: 'character varying', required: 1},
+          {name: 'user[password]', description: 'Password(minimum 6 characters)', data_type: 'character varying', required: 1},
+          {name: 'user[device_type]', description: '1 = Android and 2 = IOS', data_type: 'integer'},
+          {name: 'user[device_token]', description: 'Enter Device token', data_type: 'character varying'}
+        ],
+        options: {}} %>      
+
+<!--Agent Edit Account Apis -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Edit Agent Account', 
+        link_href: 'edit_agent_acc',
+        link_method: 'POST',
+        original_link: api_v1_edit_agent_account_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 },
+          {name: 'user[id]', description: 'Enter User id ',data_type: 'integer', required: 1 },
+          {name: 'user[avatar]', description: "Agent's profile image",data_type: 'character varying'},
+          {name: 'user[f_name]', description: 'First name of Agent ',data_type: 'character varying', required: 1 },
+          {name: 'user[l_name]', description: 'Last name of Agent',data_type: 'character varying', required: 1 },
+          {name: 'user[email]', description: 'Email of Agent',data_type: 'character varying', required: 1 },
+          {name: 'user[cell_phone]', description: 'Cell phone number',data_type: 'integer'},
+          {name: 'user[office_phone]', description: 'Office phone number', data_type: 'integer'},
+          {name: 'user[asso_agency]', description: 'Associated Agency', data_type: 'character varying', required: 1},
+          {name: 'user[license_no]', description: 'B.R.E License number', data_type: 'character varying', required: 1}
+        ],
+        options: {}} %>
+
+<!-- Change Password -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Change Password', 
+        link_href: 'change_user_password',
+        link_method: 'POST',
+        original_link: api_v1_change_password_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 },
+          {name: 'user[current_password]', description: 'Your Current Password',data_type: 'character varying', required: 1 },
+          {name: 'user[password]', description: 'New Password',data_type: 'character varying', required: 1 },
+          {name: 'user[password_confirmation]', description: 'Confirm new password',data_type: 'character varying', required: 1 }
+        ],
+        options: {}} %>   
+
+<!-- Forgot Password -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Forgot Password', 
+        link_href: 'forgot_user_password',
+        link_method: 'POST',
+        original_link: api_v1_forgot_password_url,
+        parameters: [
+          {name: 'user[email]', description: 'Your Email for varification..!',data_type: 'character varying', required: 1 }
+        ],
+        options: {}} %>
+
+<!-- View list of Users -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Users Listing', 
+        link_href: 'list_user',
+        link_method: 'GET',
+        original_link: api_v1_user_list_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 }
+        ],
+        options: {}} %>      
+
+<!-- View list of Agents -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Agents Listing', 
+        link_href: 'list_agent',
+        link_method: 'GET',
+        original_link: api_v1_agent_list_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 }
+        ],
+        options: {}} %>               
+
+<!-- Delete User -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Delete Users', 
+        link_href: 'delete_user',
+        link_method: 'POST',
+        original_link: api_v1_delete_user_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 },
+          {name: 'user[id]', description: 'Enter User/Agent id ',data_type: 'integer', required: 1 }
+        ],
+        options: {}} %>
+
+<!-- Add Property -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Add Property', 
+        link_href: 'add_property',
+        link_method: 'POST',
+        original_link: api_v1_add_property_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 },
+          {name: 'property[status]', description: 'Property status',data_type: 'character varying', required: 1 },
+          {name: 'property[address]', description: 'Address of property',data_type: 'text', required: 1 },
+          {name: 'property[city]', description: 'Enter City',data_type: 'character varying', required: 1 },
+          {name: 'property[state]', description: 'Enter State',data_type: 'character varying', required: 1 },
+          {name: 'property[zip]', description: 'Enter Zip',data_type: 'integer', required: 1 },
+          {name: 'property[property_type]', description: 'Type of property',data_type: 'character varying', required: 1 },
+          {name: 'property[style]', description: 'Style of property',data_type: 'character varying', required: 1 },
+          {name: 'property[price]', description: 'Enter price for property',data_type: 'integer', required: 1 },
+          {name: 'property[sqft]', description: 'Enter Squrefeet',data_type: 'float', required: 1 },
+          {name: 'property[lot_size]', description: 'Enter Lot size',data_type: 'float', required: 1 },
+          {name: 'property[yeat_built]', description: 'Enter Yeat Built',data_type: 'character varying', required: 1 },
+          {name: 'property[beds]', description: 'Enter no. of beds',data_type: 'integer', required: 1 },
+          {name: 'property[baths]', description: 'Enter no. of baths',data_type: 'integer', required: 1 },
+          {name: 'property[mls]', description: 'Enter MLS',data_type: 'character varying', required: 1 },
+          {name: 'property[garage]', description: 'Enter no. of garage',data_type: 'integer', required: 1 },
+          {name: 'property[heat]', description: 'Enter type of heat available',data_type: 'character varying', required: 1 },
+          {name: 'property[air]', description: 'Air ',data_type: 'character varying', required: 1 },
+          {name: 'property[water]', description: 'Water',data_type: 'character varying', required: 1 },
+          {name: 'property[sewer]', description: 'Sewer',data_type: 'character varying', required: 1 },
+          {name: 'property[description]', description: 'Add notes',data_type: 'text', required: 1 },
+          {name: 'property[date]', description: 'Enter date when property open',data_type: 'date', required: 1 },
+          {name: 'property[from]', description: 'Time from',data_type: 'time', required: 1 },
+          {name: 'property[to]', description: 'Time to',data_type: 'time', required: 1 },
+          {name: 'property[lat]', description: 'Latitude of address',data_type: 'float', required: 1 },
+          {name: 'property[lon]', description: 'Longitude of address',data_type: 'float', required: 1 }
+        ],
+        options: {}} %>           
+
+<!--Edit Property -->
+<%= render partial: 'api', locals: {
+        link_name: 'Edit Property', 
+        link_href: 'edit_property',
+        link_method: 'POST',
+        original_link: api_v1_edit_property_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 },
+          {name: 'property[property_id]', description: 'Property Id',data_type: 'integer', required: 1 },
+          {name: 'property[status]', description: 'Property status',data_type: 'character varying', required: 1 },
+          {name: 'property[address]', description: 'Address of property',data_type: 'text', required: 1 },
+          {name: 'property[city]', description: 'Enter City',data_type: 'character varying', required: 1 },
+          {name: 'property[state]', description: 'Enter State',data_type: 'character varying', required: 1 },
+          {name: 'property[zip]', description: 'Enter Zip',data_type: 'integer', required: 1 },
+          {name: 'property[property_type]', description: 'Type of property',data_type: 'character varying', required: 1 },
+          {name: 'property[style]', description: 'Style of property',data_type: 'character varying', required: 1 },
+          {name: 'property[price]', description: 'Enter price for property',data_type: 'integer', required: 1 },
+          {name: 'property[sqft]', description: 'Enter Squrefeet',data_type: 'float', required: 1 },
+          {name: 'property[lot_size]', description: 'Enter Lot size',data_type: 'float', required: 1 },
+          {name: 'property[yeat_built]', description: 'Enter Yeat Built',data_type: 'character varying', required: 1 },
+          {name: 'property[beds]', description: 'Enter no. of beds',data_type: 'integer', required: 1 },
+          {name: 'property[baths]', description: 'Enter no. of baths',data_type: 'integer', required: 1 },
+          {name: 'property[mls]', description: 'Enter MLS',data_type: 'character varying', required: 1 },
+          {name: 'property[garage]', description: 'Enter no. of garage',data_type: 'integer', required: 1 },
+          {name: 'property[heat]', description: 'Enter type of heat available',data_type: 'character varying', required: 1 },
+          {name: 'property[air]', description: 'Air ',data_type: 'character varying', required: 1 },
+          {name: 'property[water]', description: 'Water',data_type: 'character varying', required: 1 },
+          {name: 'property[sewer]', description: 'Sewer',data_type: 'character varying', required: 1 },
+          {name: 'property[description]', description: 'Add notes',data_type: 'text', required: 1 },
+          {name: 'property[date]', description: 'Enter date when property open',data_type: 'date', required: 1 },
+          {name: 'property[from]', description: 'Time from',data_type: 'time', required: 1 },
+          {name: 'property[to]', description: 'Time to',data_type: 'time', required: 1 },
+          {name: 'property[lat]', description: 'Latitude of address',data_type: 'float', required: 1 },
+          {name: 'property[lon]', description: 'Longitude of address',data_type: 'float', required: 1 }
+        ],
+        options: {}} %>
+
+<!-- Add Bleapp for property -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Add bleapp', 
+        link_href: 'add_bleapp',
+        link_method: 'POST',
+        original_link: api_v1_add_bleapp_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 },
+          {name: 'bleapp[property_id]', description: 'Enter Property id in which you add bleapp',data_type: 'integer', required: 1 },
+          {name: 'bleapp[title]', description: 'Enter Title for bleapp',data_type: 'character varying', required: 1 },
+          {name: 'bleapp[tags]', description: 'Enter tags about bleapp',data_type: 'character varying', required: 1 },
+          {name: 'bleapp[description]', description: 'Any note about bleapp',data_type: 'text'},
+          {name: 'images[]', description: 'Array of images for bleapp',data_type: 'character varying'},
+          {name: 'uuid', description: 'Uniq uuid of beacon',data_type: 'character varying'}
+        ],
+        options: {}} %>  
+
+<!-- Edit Bleapp for property -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Edit bleapp', 
+        link_href: 'edit_bleapp',
+        link_method: 'POST',
+        original_link: api_v1_edit_bleapp_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 },
+          {name: 'bleapp[id]', description: 'Enter bleapp id ',data_type: 'integer', required: 1 },
+          {name: 'bleapp[title]', description: 'Enter Title for bleapp',data_type: 'character varying', required: 1 },
+          {name: 'bleapp[tags]', description: 'Enter tags about bleapp',data_type: 'character varying', required: 1 },
+          {name: 'bleapp[description]', description: 'Any note about bleapp',data_type: 'text'},
+          {name: 'images[]', description: 'Array of images for bleapp',data_type: 'character varying'},
+        ],
+        options: {}} %>  
+
+<!-- Edit Bleapp for property -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Edit bleapp images', 
+        link_href: 'edit_bleapp_images',
+        link_method: 'POST',
+        original_link: api_v1_edit_bleapp_images_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 },
+          {name: 'bleapp_id', description: 'Enter bleapp id ',data_type: 'integer', required: 1 },
+          {name: 'images[]', description: 'Array of images for bleapp',data_type: 'character varying'},
+        ],
+        options: {}} %>
+<!-- Create Favorite of Property -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Favorite Property', 
+        link_href: 'favorite_property',
+        link_method: 'POST',
+        original_link: api_v1_create_favorite_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 },
+          {name: 'favorite[property_id]', description: 'Enter Property id for add to favorite',data_type: 'integer', required: 1 }
+        ],
+        options: {}} %>        
+
+
+<!-- Add Highlight for property -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Add Highlight', 
+        link_href: 'add_highlight',
+        link_method: 'POST',
+        original_link: api_v1_create_highlight_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 },
+          {name: 'property[property_id]', description: 'Enter Property id in which you add Highlight',data_type: 'integer', required: 1 },
+          {name: 'property[user_id]', description: 'Enter User id',data_type: 'integer', required: 1 },
+          {name: 'property[image]', description: 'Add image for Highlight',data_type: 'character varying', required: 1 },
+          {name: 'property[title]', description: 'Enter Title for Highlight',data_type: 'character varying', required: 1 },
+          {name: 'property[note]', description: 'Any note about Highlight',data_type: 'text'}
+        ],
+        options: {}} %>  
+
+<!-- Edit Highlight for property -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Edit Highlight', 
+        link_href: 'edit_highlight',
+        link_method: 'POST',
+        original_link: api_v1_edit_highlight_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 },
+          {name: 'highlight_id', description: 'Enter Highlight id',data_type: 'integer', required: 1 },
+          {name: 'property[user_id]', description: 'Enter User id',data_type: 'integer', required: 1 },
+          {name: 'property[image]', description: 'Add image for Highlight',data_type: 'character varying', required: 1 },
+          {name: 'property[title]', description: 'Enter Title for Highlight',data_type: 'character varying', required: 1 },
+          {name: 'property[note]', description: 'Any note about Highlight',data_type: 'text'},
+          {name: 'property[delete_image]', description: 'set true if you want delete image',data_type: 'text'}
+        ],
+        options: {}} %>          
+
+
+<!--Add images -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Add Images', 
+        link_href: 'add_images',
+        link_method: 'POST',
+        original_link: api_v1_add_images_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 },
+          {name: 'property_id', description: 'Enter Property id in which you add Images',data_type: 'integer', required: 1},
+          {name: 'images[]', description: 'Add image for Property',data_type: 'character varying', required: 1 }
+        ],
+        options: {}} %> 
+
+<!--Edit images -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Edit Image', 
+        link_href: 'edit_image',
+        link_method: 'POST',
+        original_link: api_v1_edit_image_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 },
+          {name: 'images[]', description: 'edit images for Property',data_type: 'character varying', required: 1 },
+          {name: 'image_ids[]', description: 'images id',data_type: 'character varying', required: 1 },
+          {name: 'new_images[]', description: 'new images for Property',data_type: 'character varying' },
+          {name: 'delete_images[]', description: 'delete images for Property',data_type: 'character varying' },
+          {name: 'starred_id', description: 'starred image id for Property',data_type: 'character varying' },
+          {name: 'starred_image', description: 'starred image for Property',data_type: 'character varying' }
+        ],
+        options: {}} %>
+<!--Add Documents -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Add Documents', 
+        link_href: 'add_documents',
+        link_method: 'POST',
+        original_link: api_v1_add_documents_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 },
+          {name: 'property_id', description: 'Enter Property id in which you add Images',data_type: 'integer', required: 1},
+          {name: 'files[]', description: 'Add Documents for Property',data_type: 'character varying', required: 1 }
+        ],
+        options: {}} %> 
+
+<!--Edit Documents -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Edit Documents', 
+        link_href: 'edit_documents',
+        link_method: 'POST',
+        original_link: api_v1_edit_document_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 },
+          {name: 'file_id', description: 'Enter document id in which you edit Document',data_type: 'integer', required: 1},
+          {name: 'file', description: 'Add Document for Property',data_type: 'character varying', required: 1 }
+        ],
+        options: {}} %>        
+
+<!-- View list of Property -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Take Tour', 
+        link_href: 'take_tour',
+        link_method: 'GET',
+        original_link: api_v1_take_tour_url,
+        parameters: [
+          {name: 'auth_token', description: 'token',data_type: 'character varying', required: 1 },
+          {name: 'id', description: 'property id',data_type: 'integer', required: 1 }
+        ],
+        options: {}} %>  
+
+<!-- View list of Property -->
+  <%= render partial: 'api', locals: {
+        link_name: 'View Listing', 
+        link_href: 'list_property',
+        link_method: 'GET',
+        original_link: api_v1_view_listing_url,
+        parameters: [
+          {name: 'auth_token', description: 'token',data_type: 'character varying', required: 1 },
+          {name: 'lat', description: 'latitude',data_type: 'character varying', required: 1 },
+          {name: 'lon', description: 'longitude',data_type: 'character varying', required: 1 }
+        ],
+        options: {}} %>         
+
+<!-- View My list of Property -->
+  <%= render partial: 'api', locals: {
+        link_name: 'My Listing', 
+        link_href: 'my_list_property',
+        link_method: 'GET',
+        original_link: api_v1_my_listing_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 }
+        ],
+        options: {}} %>
+
+<!-- View Favorite list of Property -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Favorite Listing', 
+        link_href: 'get_favorite_property',
+        link_method: 'GET',
+        original_link: api_v1_my_favorite_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 }
+        ],
+        options: {}} %>
+
+<!-- View Bleapp of Property -->
+  <%= render partial: 'api', locals: {
+        link_name: 'View Bleapp', 
+        link_href: 'get_bleapp',
+        link_method: 'GET',
+        original_link: api_v1_view_bleapp_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 },
+          {name: 'property[property_id]', description: 'Enter Property id',data_type: 'integer', required: 1 }
+        ],
+        options: {}} %>        
+
+<!-- View Highlights of Property -->
+  <%= render partial: 'api', locals: {
+        link_name: 'View Highlights', 
+        link_href: 'get_highlights',
+        link_method: 'GET',
+        original_link: api_v1_view_highlight_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 },
+          {name: 'property[property_id]', description: 'Enter Property id',data_type: 'integer', required: 1 }
+        ],
+        options: {}} %>
+
+<!-- View Highlighted Property -->
+  <%= render partial: 'api', locals: {
+        link_name: 'View Highlighted Properties', 
+        link_href: 'get_highlighted_properties',
+        link_method: 'GET',
+        original_link: api_v1_highlighted_property_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 }
+        ],
+        options: {}} %>        
+
+<!-- Delete Property -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Delete Property', 
+        link_href: 'delete_property',
+        link_method: 'POST',
+        original_link: api_v1_delete_property_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 },
+          {name: 'property[property_id]', description: 'Enter Property id',data_type: 'integer', required: 1 }
+        ],
+        options: {}} %>          
+
+<!-- Remove Favorite -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Remove Favorite', 
+        link_href: 'remove_favorite',
+        link_method: 'POST',
+        original_link: api_v1_destroy_favorite_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 },
+          {name: 'property[property_id]', description: 'Enter Property id',data_type: 'integer', required: 1 }
+        ],
+        options: {}} %> 
+
+<!-- Remove Favorite -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Remove Bleapp', 
+        link_href: 'remove_bleapp',
+        link_method: 'POST',
+        original_link: api_v1_destroy_bleapp_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 },
+          {name: 'bleapp_id', description: 'Enter bleapp id',data_type: 'integer', required: 1 }
+        ],
+        options: {}} %>       
+
+<!-- Remove Favorite -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Remove Highlight', 
+        link_href: 'remove_highlight',
+        link_method: 'POST',
+        original_link: api_v1_destroy_highlight_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 },
+          {name: 'highlight_id', description: 'Enter highlight id',data_type: 'integer', required: 1 }
+        ],
+        options: {}} %>                   
+
+
+<!-- Filter property -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Filter Property', 
+        link_href: 'filter_property',
+        link_method: 'POST',
+        original_link: api_v1_filter_property_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 },
+          {name: 'lat', description: 'Latitude of address',data_type: 'float', required: 1 },
+          {name: 'lon', description: 'Longitude of address',data_type: 'float', required: 1 },
+          {name: 'min_price', description: 'Enter Minimum price',data_type: 'integer', required: 1 },
+          {name: 'max_price', description: 'Enter Maximum price',data_type: 'integer', required: 1 },
+          {name: 'types', description: 'Array of Home Type',data_type: 'text'},
+          {name: 'beds', description: 'Enter no of Beds',data_type: 'text'},
+          {name: 'baths', description:'Enter no of Baths',data_type: 'text'},
+          {name: 'min_sqrt', description: 'Enter Minimum Squrefeet',data_type: 'integer'},
+          {name: 'max_sqrt', description: 'Enter Maximum Squrefeet',data_type: 'integer'},
+          {name: 'keyword', description: 'Keywords',data_type: 'text'},
+          {name: 'view', description: 'API call for which view list',data_type: 'integer'}
+        ],
+        options: {}} %>  
+
+<!-- Search property -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Search Property', 
+        link_href: 'search_property',
+        link_method: 'POST',
+        original_link: api_v1_search_property_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 },
+          {name: 'location', description: 'Enter location',data_type: 'text', required: 1 },
+          {name: 'view', description: 'API call for which view list',data_type: 'integer'}
+        ],
+        options: {}} %>         
+
+<!-- Feedback form-->
+  <%= render partial: 'api', locals: {
+        link_name: 'Feedback', 
+        link_href: 'feedback',
+        link_method: 'POST',
+        original_link: api_v1_create_feedback_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 },
+          {name: 'feedback[rate]', description: 'Enter rate for Bleapp',data_type: 'integer', required: 1 },
+          {name: 'feedback[intrested]', description: 'Intrested to showcase your property with bleapp(only for Agent)',data_type: 'boolean', required: 1 },
+          {name: 'feedback[contactable]', description: 'Can we contact you?',data_type: 'boolean', required: 1 },
+          {name: 'feedback[comments]', description: 'Enter your comments',data_type: 'text', required: 1 },
+          {name: 'feedback[property_id]', description: 'Enter property id',data_type: 'text', required: 1 }          
+        ],
+        options: {}} %>     
+
+<!-- View Feedback -->
+  <%= render partial: 'api', locals: {
+        link_name: 'View Feedback', 
+        link_href: 'view_feedback',
+        link_method: 'GET',
+        original_link: api_v1_view_feedback_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 },
+          {name: 'property_id', description: 'Enter property id',data_type: 'integer', required: 1}          
+        ],
+        options: {}} %> 
+
+<!-- List of Feedback -->
+  <%= render partial: 'api', locals: {
+        link_name: 'List Feedback', 
+        link_href: 'get_feedback',
+        link_method: 'GET',
+        original_link: api_v1_get_feedback_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 },
+          {name: 'role', description: 'Enter 1 for user feedback or 2 for agent',data_type: 'integer', required: 1}          
+        ],
+        options: {}} %> 
+
+<!-- Register Visited bleapp-->
+  <%= render partial: 'api', locals: {
+        link_name: 'Register Visit', 
+        link_href: 'register_visit',
+        link_method: 'POST',
+        original_link: api_v1_register_visit_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 },
+          {name: 'user_id', description: 'Enter current user id',data_type: 'integer', required: 1},
+          {name: 'bleapp_id', description: 'Enter bleapp id',data_type: 'integer', required: 1}          
+        ],
+        options: {}} %> 
+
+<!-- Get Beacon-->
+  <%= render partial: 'api', locals: {
+        link_name: 'Get beacon', 
+        link_href: 'get_beacon',
+        link_method: 'GET',
+        original_link: api_v1_get_beacon_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 }  
+        ],
+        options: {}} %> 
+
+<!-- Visited Beacon-->
+  <%= render partial: 'api', locals: {
+        link_name: 'Visit Beacon', 
+        link_href: 'visit_beacon',
+        link_method: 'POST',
+        original_link: api_v1_visit_beacon_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 },
+          {name: 'uuid', description: 'Enter UUID of beacon',data_type: 'character varying', required: 1},
+          {name: 'name', description: 'Enter name of beacon',data_type: 'character varying', required: 1}          
+        ],
+        options: {}} %>         
+
+
+<!-- Get Property Attribute -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Get Property Attribute', 
+        link_href: 'get_attribute',
+        link_method: 'GET',
+        original_link: api_v1_get_property_attribute_url,
+        parameters: [          
+        ],
+        options: {}} %>   
+
+<!-- Get Bleapp Tags -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Get bleapp Tagss', 
+        link_href: 'get_tags',
+        link_method: 'GET',
+        original_link: api_v1_get_bleapp_tags_url,
+        parameters: [          
+        ],
+        options: {}} %>             
+
+<!-- Get Bleapp Tags -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Get used Beacon', 
+        link_href: 'get_used_beacon',
+        link_method: 'GET',
+        original_link: api_v1_get_used_beacon_url,
+        parameters: [   
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 }       
+        ],
+        options: {}} %>
+
+<!-- Get Property from beacon -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Get property by Beacon', 
+        link_href: 'get_property_by_beacon',
+        link_method: 'GET',
+        original_link: api_v1_get_property_url,
+        parameters: [   
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 },
+          {name: 'beacon_name', description: 'name ',data_type: 'character varying', required: 1 }       
+        ],
+        options: {}} %>
+
+
+<!-- Get Agent's beacon -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Get Agent Beacon', 
+        link_href: 'get_agent_beacon',
+        link_method: 'GET',
+        original_link: api_v1_get_agent_beacon_url,
+        parameters: [   
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 },
+          {name: 'user_id', description: 'Agent id ',data_type: 'character varying', required: 1 }       
+        ],
+        options: {}} %>
+
+<!-- LogOut User -->
+  <%= render partial: 'api', locals: {
+        link_name: 'Sign Out', 
+        link_href: 'sign_out',
+        link_method: 'POST',
+        original_link: api_v1_destroy_url,
+        parameters: [
+          {name: 'auth_token', description: 'token ',data_type: 'character varying', required: 1 }
+        ],
+        options: {}} %>              
+</span>

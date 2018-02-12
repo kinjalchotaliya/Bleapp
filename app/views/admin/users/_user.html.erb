@@ -1,0 +1,71 @@
+
+<%= link_to "Register User",new_admin_user_path(role: "USER"), class: "btn btn-primary" if @role == "USER"%>
+<div class="col-lg-12 animated-panel zoomIn" style="animation-delay: 0.1s;">
+  <div class="hpanel">
+    <div class="panel-heading">
+    </div>
+    <div class="panel-body" style="display: block;">
+      <div class="table-responsive">
+        <table cellpadding="1" cellspacing="1" class="table table-bordered table-striped" id="user_list_table">
+          <thead>
+            <tr>
+              <th> First Name </th>
+              <th> Last Name </th>
+              <th> Cell Phone</th>
+              <th> Email</th>
+              <th> Contact Via Email </th>
+              <th> Contact Via SMS </th>
+              <th> Work with Agent</th>
+              <th id="data-colspan"> <center>Action</center></th>
+              <th class="hide_dt_column" style="display:none"><center>Action</center></th>
+            </tr>
+          </thead>
+          <tbody>
+            <%@users.each do |user|%>
+              <tr>
+                <td><%= user.f_name.present? ? user.f_name : "-" %></td>
+                <td><%= user.l_name.present? ? user.l_name : "-" %></td>
+                <td><%= user.cell_phone.present? ? user.cell_phone : "-" %></td>
+                <td><%= user.email.present? ? user.email : "-" %></td>
+                <td><%=user.user_setting.contact_by_email ? "Yes" : "No"%></td>
+                <td><%= user.user_setting.contact_by_sms ? "Yes" : "No"%></td>
+                <td><%= user.user_setting.work_with_agent ? "Yes" : "No"%></td>
+                <td><%= link_to "Edit", edit_admin_user_path(id: user.id)%></td>
+                <td><%= link_to "Delete", admin_user_path(id: user.id), method: :delete, data: { confirm: 'Are you sure?' }%></td>
+              </tr>
+            <%end%>
+          </tbody>
+          <tfoot>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+    <!-- <div class="panel-footer" style="display: block;">
+      <div class="apple_pagination">
+        <%#= will_paginate @users, :container => false %>
+      </div>
+    </div> -->
+  </div>
+</div>
+<script>
+  // var ready = function(){
+  //                 if ( ! $.fn.DataTable.isDataTable( '#user_list_table' ) ) {
+  //                           $('#user_list_table').dataTable({
+  //                               "stateSave": true,
+  //                               "paging": true,
+  //                               "info": false,
+  //                               "reverte":true,
+  //                               "columnDefs": [ { "targets": [-1,-2], "orderable": false },
+  //                                               { "targets": [0,1,2,3], "searchable": true}],
+  //                               "language": { searchPlaceholder: "Search here" }
+  //                           });
+  //                 }
+  //                 $(".hide_dt_column").hide();
+  //
+  //                 $("#col_header1").attr('colspan',3);
+  //                 $( ".dataTables_paginate" ).addClass( "apple_pagination" );
+  // }
+  // $(document).on('ready',ready);
+  // $(document).on('turbolinks:load',ready);
+  // $(document).on('page:change',ready);
+</script>

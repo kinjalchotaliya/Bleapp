@@ -1,0 +1,16 @@
+<%= form_for(:admin, :url => admin_create_path, :html => {:id => "admin_login",:name => "admin_login_form"}) do |f|%>
+  <div class="col-md-6 col-md-push-3">
+    <div class="form-group">
+      <label for="email" class="control-label">Email</label>
+      <%= f.text_field :email,:class => "form-control", :placeholder => "Email address"%>
+    </div>
+    <div class="form-group">
+      <label for="password" class="control-label">Password</label>
+      <%= f.password_field :password,:class => "form-control", :placeholder => "Password"  %>
+    </div>
+    
+    <div class="col-md-6 col-md-push-3">
+      <%= f.submit "Login",:id => "submit",:class => "btn btn-popup title-font btn-lg btn-block", data: { disable_with: "Processing..." } %>
+    </div>                
+  </div>
+<% end %>

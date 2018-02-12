@@ -1,0 +1,243 @@
+<div class="content animate-panel">
+	<div class="row">
+  	<div class="col-md-5 animated-panel zoomIn" style="animation-delay: 0.1s;">
+      <div class="hpanel">
+        <div class="panel-heading">
+          Property Address
+        </div>
+        <div class="panel-body" style="display: block;">
+          <div class="table-responsive">
+            <table cellpadding="1" cellspacing="1" class="table table-bordered table-striped">
+              <tbody>
+                <tr>
+           				<th> Status </th>
+           				<td><%= @property.status %></td>
+           			</tr>
+           			<tr>
+									<th> Address </th>
+									<td><%= @property.address %></td>
+								</tr>
+								<tr>
+									<th> City </th>
+									<td><%= @property.city %></td>
+								</tr>
+								<tr>
+									<th> State </th>
+									<td><%= @property.state %></td>
+								</tr>
+								<tr>
+									<th> Zip </th>
+									<td><%= @property.zip %></td>
+                </tr>
+                <tr>
+                  <th> Latitude </th>
+                  <td><%= @property.lat %></td>
+                </tr>
+                <tr>
+                  <th> Longitude </th>
+                  <td><%= @property.lon %></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+		  	<div class="col-md-12 animated-panel zoomIn" style="animation-delay: 0.1s;">
+		      <div class="hpanel">
+		        <div class="panel-heading">
+		          Open Property Schedule
+		        </div>
+		        <div class="panel-body" style="display: block;">
+		          <div class="table-responsive">
+		            <table cellpadding="1" cellspacing="1" class="table table-bordered table-striped">
+		              <tbody>
+                    <%unless @schedule.nil? %>
+  		                <tr>
+  		           				<th> Date </th>
+  		           				<td><%= @schedule.date %></td>
+  		           			</tr>
+  		           			<tr>
+  											<th> From </th>
+  											<td><%= @schedule.from %></td>
+  										</tr>
+  										<tr>
+  											<th> To </th>
+  											<td><%= @schedule.to %></td>
+  										</tr>
+                    <%else%>
+                      <tr><td colspan="3">No Schedule Available..!</td></tr>
+                    <%end%>
+		              </tbody>
+		            </table>
+		          </div>
+		        </div>
+		      </div>
+		  	</div>
+			</div>
+  	</div>
+  	<div class="col-md-7 animated-panel zoomIn" style="animation-delay: 0.1s;">
+      <div class="hpanel">
+        <div class="panel-heading">
+          Property Detail
+        </div>
+        <div class="panel-body" style="display: block;">
+          <div class="table-responsive">
+            <table cellpadding="1" cellspacing="1" class="table table-bordered table-striped">
+              <tbody>
+                <%unless @detail.nil?%>
+                  <tr>
+             				<th> Property Type</th>
+             				<td><%= @detail.property_type %></td>
+             			</tr>
+             			<tr>
+  									<th> Style </th>
+  									<td><%= @detail.style %></td>
+  								</tr>
+  								<tr>
+  									<th> Price </th>
+  									<td><%= @detail.price %></td>
+  								</tr>
+  								<tr>
+  									<th> Squre Feet</th>
+  									<td><%= @detail.sqft %></td>
+  								</tr>
+  								<tr>
+  									<th> Lot size </th>
+  									<td><%= @detail.lot_size %></td>
+                  </tr>
+                  <tr>
+  									<th> Yeat Built </th>
+  									<td><%= @detail.yeat_built %></td>
+                  </tr>
+                  <tr>
+  									<th> Beds </th>
+  									<td><%= @detail.beds %></td>
+                  </tr>
+                  <tr>
+  									<th> Baths </th>
+  									<td><%= @detail.baths %></td>
+                  </tr>
+                  <tr>
+  									<th> MLS </th>
+  									<td><%= @detail.mls %></td>
+                  </tr>
+                  <tr>
+  									<th> Garage </th>
+  									<td><%= @detail.garage %></td>
+                  </tr>
+                  <tr>
+  									<th> Heat </th>
+  									<td><%= @detail.heat %></td>
+                  </tr>
+                  <tr>
+  									<th> Air </th>
+  									<td><%= @detail.air %></td>
+                  </tr>
+                  <tr>
+  									<th> Water </th>
+  									<td><%= @detail.water %></td>
+                  </tr>
+                  <tr>
+  									<th> Sewer </th>
+  									<td><%= @detail.sewer %></td>
+                  </tr>
+                  <tr>
+  									<th> Description </th>
+  									<td><%= @detail.description.html_safe %></td>
+                  </tr>
+                <%else%>
+                  <tr><td>No Detail Available..!</td></tr>
+                <%end%>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+  	</div>
+	</div>
+	<div class="row">
+  	<div class="col-md-6 animated-panel zoomIn" style="animation-delay: 0.1s;">
+      <div class="hpanel">
+        <div class="panel-heading">
+          Bleapps Of Property
+        </div>
+        <div class="panel-body" style="display: block;">
+          <div class="table-responsive">
+            <table cellpadding="1" cellspacing="1" class="table table-bordered table-striped">
+            	<thead>
+            		<tr>
+            			<th> Title </th>
+            			<th> Tags </th>
+            			<th> Description </th>
+                  <th colspan="2"> Action </th>
+            		</tr>
+            	</thead>
+              <tbody>
+                <%unless @bleapps.blank?%>
+                	<%@bleapps.each do |bleapp|%>
+                		<tr>
+  	           				<td><%= bleapp.title %></td>
+  										<td><%= bleapp.tags %></td>
+  										<td><%= bleapp.description.html_safe %></td>
+                      <td><%= link_to "Edit", edit_admin_bleapp_path(id: bleapp.id)%></td>
+                      <td><%= link_to "Delete",  admin_bleapp_path(id: bleapp.id), method: :post, data: { confirm: 'Are you sure?' }%></td>
+  									</tr>
+  								<%end%>
+                <%else%>
+                  <tr><td colspan="5">No Bleapp Available..!</td></tr>
+                <%end%>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+  	</div>
+  	<div class="col-md-6 animated-panel zoomIn" style="animation-delay: 0.1s;">
+      <div class="hpanel">
+        <div class="panel-heading">
+          Highlights Of Property
+        </div>
+        <div class="panel-body" style="display: block;">
+          <div class="table-responsive">
+            <table cellpadding="1" cellspacing="1" class="table table-bordered table-striped">
+            	<thead>
+            		<tr>
+            			<th> Title </th>
+            			<th> Note </th>
+            			<th> Image </th>
+                  <th colspan="2"> Action</th>
+            		</tr>
+            	</thead>
+              <tbody>
+                <%unless @highlights.blank?%>
+                	<%@highlights.each do |highlight|%>
+                		<tr>
+  	           				<td><%= highlight.title %></td>
+  										<td><%= highlight.note %></td>
+  										<td>
+  											<%= image_tag highlight.image(:thumb) if highlight.image.file? %>
+  										</td>
+                      <td><%= link_to "Edit", edit_admin_highlight_path(id: highlight.id)%></td>
+                      <td><%= link_to "Delete",  admin_highlight_path(id: highlight.id), method: :delete, data: { confirm: 'Are you sure?' }%></td>
+  									</tr>
+  								<%end%>
+                <%else%>
+                  <tr><td colspan="5">No Highlights Available</td></tr>
+                <%end%>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+  	</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+      <center>
+			<%= link_to "Edit", edit_admin_property_path(@property.id),{:class => "btn btn-primary btn-lg"}%>
+			<%= link_to "Delete", admin_property_path(@property.id), method: :delete, data: { confirm: 'Are you sure?' },:class => "btn btn-danger btn-lg"%>
+      </center>
+		</div>
+	</div>
+</div>

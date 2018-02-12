@@ -1,0 +1,17 @@
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+<!-- <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>  -->
+<div class="content animate-panel">
+  <div class="row">
+    <%= link_to "Add bleapp",new_admin_beacon_path, class: "btn btn-primary"%>
+    <%= link_to "Import bleapp list",admin_upload_csv_path, class: "btn btn-primary"%>
+    <div class="col-lg-12 animated-panel zoomIn" style="animation-delay: 0.1s;">
+      <div class="hpanel">
+        <div class="panel-heading">
+          bleapp List
+        </div>
+        <%= render 'proximate_uuid'%>
+      </div>
+    </div>      
+  </div>
+</div>
+

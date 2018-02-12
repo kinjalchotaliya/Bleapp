@@ -1,0 +1,5 @@
+<%#= line_chart User.group_by_day(:current_sign_in_at).count %>
+<%#= pie_chart Property.group(:status).count %>
+<%#= pie_chart Impression.group(:impressionable_id).count %>
+<%#= column_chart Impression.group(:ip_address).count %>
+<%#= bar_chart Impression.group(:action_name).count %>

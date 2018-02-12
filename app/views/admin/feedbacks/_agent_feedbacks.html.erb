@@ -1,0 +1,47 @@
+<div class="table-responsive" style="margin-top: 20px;">
+  <table cellpadding="1" cellspacing="1" class="table table-bordered table-striped" id="agent_feback_table">
+    <thead>
+      <tr>
+        <th> Rating </th>
+        <th> Interested to work further</th>
+        <th> Contactable </th>
+        <th> Comment </th>
+        <th> E-mail</th>
+        <th> Property ID</th>
+        <th> Action </th>
+      </tr>
+    </thead>
+    <tbody>
+      <%@feedbacks_agent.each do |feedback|%>
+        <tr>
+          <td><%=feedback.rate%></td>
+          <td><%=feedback.intrested %>
+          <td><%=feedback.contactable%></td>
+          <td><%=feedback.comments%></td>
+          <td><%=feedback.user.email%></td>
+          <%if feedback.property_id.present? %>
+            <td><%= link_to "#{feedback.property_id}", admin_property_path(feedback.property_id)%></td>
+          <%else%>
+            <td>test</td>
+          <%end%>
+          <td><%= link_to "Delete", admin_feedbacks_path(id: feedback.id), method: :delete, data: { confirm: 'Are you sure?' }%></td>
+        </tr>
+      <%end%>
+    </tbody>
+  </table>
+</div>
+ <script>
+    $(document).on('turbolinks:load',function(){
+      $('#agent_feback_table').DataTable({
+        "stateSave": true,
+        "paging": true,
+        "info": false,
+        "retrieve":true,
+        "columnDefs": [ { "targets": [6], "orderable": false },
+                        { "targets": [6], "searchable": false}],
+        "language": { searchPlaceholder: "Search here" }
+    });
+   $("#agent_feback_table_wrapper").find(".dataTables_filter label:first").find('input').attr("class", "form-control" );
+   $( ".dataTables_paginate" ).addClass( "apple_pagination" );
+  });
+  </script>

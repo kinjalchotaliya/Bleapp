@@ -1,0 +1,41 @@
+  <!-- Main Wrapper -->
+	<div class="content animate-panel">
+		<div class="row">
+      <% if @role == "ADMIN" %>
+        <%=render "admin"%>
+      <% elsif @role == "USER" %>
+        <%=render "user"%>
+      <% else %>
+         <%=render "agent"%>
+      <% end %>
+    </div>
+  </div>
+          <!-- <div class="panel-footer" style="display: block;">
+          	<div class="apple_pagination">
+					    <%#= will_paginate @users, :container => false %>
+					  </div>
+          </div> -->
+      
+  <script>
+  var ready = function(){
+                  var id = $("table").attr("id");
+                  if ( ! $.fn.DataTable.isDataTable( '#'+id ) ) {
+                            $('#'+id).dataTable({
+                                "stateSave": true,
+                                "paging": true,
+                                "info": false,
+                                "reverte":true,
+                                "columnDefs": [ { "targets": [-1,-2], "orderable": false },
+                                                { "targets": [0,1,2,3], "searchable": true}],
+                                "language": { searchPlaceholder: "Search here" }
+                            });
+                  }
+                  $(".hide_dt_column").hide();
+
+                  $("#col_header1").attr('colspan',3);
+                  $( ".dataTables_paginate" ).addClass( "apple_pagination" );
+  }
+  $(document).on('ready',ready);
+  $(document).on('turbolinks:load',ready);
+  $(document).on('page:change',ready);
+  </script>

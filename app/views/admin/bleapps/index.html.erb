@@ -1,0 +1,70 @@
+<div class="content animate-panel">
+    <div class="row">
+      <%= link_to "Add Bleapp",new_admin_bleapp_path(id:resource.id), class: "btn btn-primary"%>
+      <div class="col-lg-12 animated-panel zoomIn" style="animation-delay: 0.1s;">
+        <div class="hpanel">
+          <div class="panel-heading">
+            Bleapp List
+          </div>
+          <div class="panel-body" style="display: block;">
+            <div class="table-responsive">
+              <table cellpadding="1" cellspacing="1" class="table table-striped table-bordered" id="bleapp_table">
+                <thead>
+                  <tr>
+                    <th> Title </th>
+                    <th> Tags </th>
+                    <th> Description </th>
+                    <th> UUID</th>
+                    <th id="col_header1"> <center>Action</center></th>
+                    <th class="hide_dt_column"> <center>Action</center></th>
+                    <th class="hide_dt_column"> <center>Action</center></th>
+                    <th class="hide_dt_column"> <center>Action</center></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <%@bleapps.each do |bleapp|%>
+                    <tr>
+                      <td><%=bleapp.title%></td>
+                      <td><%=bleapp.tags%></td>
+                      <td><%=bleapp.description.html_safe%></td>
+                      <% if bleapp.beacon.present? &&  bleapp.beacon.present? %>
+                        <td><%=bleapp.beacon.uuid%></td>
+                      <% else %>
+                          <td>-</td>
+                      <% end %>
+                      <td><%= link_to "Images", admin_ble_images_path(id: bleapp.id)%></td>
+                      <td><%= link_to "Audio", admin_ble_audio_path( id: bleapp.id ) %></td>
+                      <td><%= link_to "edit",edit_admin_bleapp_path(bleapp)%></td>
+                      <% if bleapp.beacon.present?  %>
+                        <td><%= link_to "Delete", admin_bleapp_path(bleapp.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                        <% else %>
+                        <td>-</td>
+                      <% end %>
+                    </tr>
+                  <%end%>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    $(document).on('turbolinks:load ',function(){
+      $("#side-menu").find("li > a").attr("data-turbolinks",false);
+        if ( ! $.fn.DataTable.isDataTable( '#bleapp_table') ) {
+        $(".hide_dt_column").hide();
+        $('#bleapp_table').DataTable({
+          "stateSave": true,
+          "reverte":true,
+          "paging": true,
+          "info": false,
+          "language": { searchPlaceholder: "Search here" }
+      });
+
+      $("#col_header1").attr('colspan',3);
+      $( ".dataTables_paginate" ).addClass( "apple_pagination" );
+    }
+  });
+  </script>

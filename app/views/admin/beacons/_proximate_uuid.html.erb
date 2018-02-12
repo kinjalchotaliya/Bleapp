@@ -1,0 +1,81 @@
+<div class="panel-body" style="display: block;">
+  <div class="table-responsive" style="margin-top: 5px;">
+    <table cellpadding="1" cellspacing="1" class="UUID_list_table table table-bordered table-striped" id="proximate_UUID_list_table">
+      <thead>
+        <tr>
+   				<th> UUID </th>
+					<th> Name </th>
+          <th> Agent </th>
+          <th> Date </th>
+          <th> Description </th>
+					<th id="col_header_2"> <center>Action</center></th>
+          <th id="hide_dt_column_2"> <center>Action</center></th>
+        </tr>
+      </thead>
+      <tbody>
+   			<%@proxi_beacons.each do |beacon|%>
+					<tr>
+						<td ><%=beacon.uuid%></td>
+						<td ><%=beacon.name%></td>
+            <td><%=link_to beacon.user.full_name,admin_user_path(beacon.user) if beacon.user.present?%></td>
+            <td><%=beacon.date%></td>
+            <td><%=beacon.description.html_safe%></td>
+            <td><%= link_to "Edit",edit_admin_beacon_path(beacon.id)%></td>
+						<td><%= link_to "Delete", admin_beacon_path(beacon.id), method: :delete, data: { confirm: 'Are you sure?' }%></td>
+					</tr>
+				<%end%>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- <div class="panel-footer" style="display: block;">
+  <div class="apple_pagination">
+    <%#= will_paginate @proxi_beacons, :container => false %>
+  </div>
+</div> -->
+<script>
+
+var ready = function(){
+                if ( ! $.fn.DataTable.isDataTable( '#proximate_UUID_list_table' ) ) {
+                          $('#proximate_UUID_list_table').dataTable({
+                              "stateSave": true,
+                              "paging": true,
+                              "info": false,
+                              "reverte":true,
+                              "columnDefs": [ { "targets": [-1,-2], "orderable": false },
+                                              { "targets": [0,1,2,3], "searchable": true}],
+                              "language": { searchPlaceholder: "Search here" }
+                          });
+                }
+                $(".hide_dt_column").hide();
+
+                $("#col_header1").attr('colspan',3);
+                $( ".dataTables_paginate" ).addClass( "apple_pagination" );
+                // $("#proximate_UUID_list_table_wrapper").find(".dataTables_filter label:first").find('input').attr("class", "form-control" );
+
+}
+$(document).on('ready',ready);
+$(document).on('turbolinks:load',ready);
+$(document).on('page:change',ready);
+
+    // $(document).on('turbolinks:load',function(){
+    //   // console.log($.fn.DataTable.isDataTable( '#proximate_UUID_list_table'));
+    //   // if ($.fn.DataTable.fnIsDataTable("#proximate_UUID_list_table")) {
+    //   //   $('#proximate_UUID_list_table').empty();
+    //   // }
+    //     $('#proximate_UUID_list_table').DataTable({
+    //       "stateSave": true,
+    //       // "reverte":true,
+    //       "paging": true,
+    //       "info": false,
+    //       "columnDefs": [ { "targets": [5,6], "orderable": false },
+    //                       { "targets": [5,6], "searchable": false}],
+    //       "language": { searchPlaceholder: "Search here" }
+    //   });
+    //
+    //   $("#hide_dt_column_2").hide();
+    // $("#col_header_2").attr('colspan',2);
+    // $( ".dataTables_paginate" ).addClass( "apple_pagination" );
+
+  // });
+</script>
